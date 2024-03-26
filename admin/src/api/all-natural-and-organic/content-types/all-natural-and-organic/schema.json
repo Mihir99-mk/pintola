@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "all_natural_and_organics",
+  "info": {
+    "singularName": "all-natural-and-organic",
+    "pluralName": "all-natural-and-organics",
+    "displayName": "All Natural & Organic"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "all_natural_and_organic"
+    }
+  }
+}
