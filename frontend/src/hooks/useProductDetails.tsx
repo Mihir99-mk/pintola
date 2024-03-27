@@ -20,3 +20,5 @@ const useProductDetails = (id:number) => {
 }
 
 export default useProductDetails
+
+

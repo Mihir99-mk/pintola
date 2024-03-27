@@ -8,6 +8,12 @@ import Products from "./Products";
 import { product } from "../utils/products";
 import { Link } from "react-router-dom";
 import { useStore } from "../hooks/useStore";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/clerk-react";
 
 const Menus = () => {
   const [isFlyoutOpen, setIsFlyoutOpen] = useState(false);
@@ -87,15 +93,12 @@ const Menus = () => {
         </div>
         <div className="text-gray-500 w-1/12  flex justify-between items-center">
           <div className="">
-            <Link to={"/login"}>
-              <IconButton
-                aria-label="Login"
-                variant={"link"}
-                rounded={"full"}
-                icon={<FaUser />}
-                className=" hover:text-orange-500"
-              />
-            </Link>
+            <SignedOut>
+              <SignInButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
           </div>
 
           <div>
@@ -109,26 +112,26 @@ const Menus = () => {
           </div>
           <div>
             <Link to={"/cart"}>
-            <Flex align="center" justify="center" position="relative">
-              <IconButton
-                variant={"link"}
-                rounded={"full"}
-                aria-label="Cart"
-                icon={<FaCartPlus />}
-                className="hover:text-orange-500"
-              />
-              {totalCount > 0 && (
-                <Badge
-                  colorScheme="orange"
-                  fontSize="sm"
-                  position="absolute"
-                  top="-8px"
-                  right="-8px"
-                >
-                  {totalCount}
-                </Badge>
-              )}
-            </Flex>
+              <Flex align="center" justify="center" position="relative">
+                <IconButton
+                  variant={"link"}
+                  rounded={"full"}
+                  aria-label="Cart"
+                  icon={<FaCartPlus />}
+                  className="hover:text-orange-500"
+                />
+                {totalCount > 0 && (
+                  <Badge
+                    colorScheme="orange"
+                    fontSize="sm"
+                    position="absolute"
+                    top="-8px"
+                    right="-8px"
+                  >
+                    {totalCount}
+                  </Badge>
+                )}
+              </Flex>
             </Link>
           </div>
           <div>

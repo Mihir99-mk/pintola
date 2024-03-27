@@ -9,6 +9,7 @@ interface CartItem {
 interface CartStore {
   cart: CartItem[];
   addToCart: (productId: number, quantity: number) => void;
+  // addToCartCheckout: (productId: number, quantity: number) => void;
 }
 
 // Function to load cart from localStorage
@@ -29,7 +30,9 @@ export const useStore = create<CartStore>((set) => ({
   cart: loadCartFromLocalStorage(), // Load cart from localStorage
   addToCart: (productId, quantity) =>
     set((state) => {
-      const existingItemIndex = state.cart.findIndex((item) => item.productId === productId);
+      const existingItemIndex = state.cart.findIndex(
+        (item) => item.productId === productId
+      );
 
       if (existingItemIndex !== -1) {
         const updatedCart = [...state.cart];
@@ -50,4 +53,11 @@ export const useStore = create<CartStore>((set) => ({
         return { cart: updatedCart };
       }
     }),
+    // addToCartCheckout: (productId: any, quantity:number) => set((state)=>{
+    //   const existingItemIndex = state.cart.findIndex((item)=>item.productId === productId);
+
+    //   if (existingItemIndex !== -1) {
+        
+    //   }
+    // })
 }));
