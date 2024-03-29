@@ -13,14 +13,15 @@ const Carts = () => {
     const stripe = await getStripe();
     if (stripe) {
       const { error } = await stripe.redirectToCheckout({
-        lineItems: cart.map(item => ({
+        
+        lineItems: [{
           price: "price_1OyXYaSHJwhaAYNOZ8Y8TzqZ",
-          quantity: item.quantity,
-        })),
+          quantity: 1,
+        }],
         mode: 'subscription',
-        successUrl: `http://localhost:3000/success`,
-        cancelUrl: `http://localhost:3000/cancel`,
-        customerEmail: 'mihirkhode90@email.com',
+        successUrl: `http://localhost:3000/`,
+        cancelUrl: `http://localhost:3000/`,
+        // customerEmail: 'example@email.com',
       });
       if (error) {
         console.warn(error.message);
@@ -88,11 +89,11 @@ const Carts = () => {
                     <Text fontSize="sm">Price: Rs.{product.attributes.Price}</Text>
                     {/* Access quantity from the cart array using index */}
                     <Text fontSize="sm">Quantity: {cart[index]?.quantity}</Text>
-                    <Flex alignItems="center">
+                    {/* <Flex alignItems="center">
                       <Button onClick={() => decreaseQuantity(product.id, index)}>-</Button>
                       <span className="mx-2">{cart[index]?.quantity}</span>
                       <Button onClick={() => increaseQuantity(product.id, index)}>+</Button>
-                    </Flex>
+                    </Flex> */}
                   </div>
                 </Flex>
                 <Divider orientation="vertical" mx={4} />

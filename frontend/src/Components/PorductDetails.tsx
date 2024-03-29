@@ -45,7 +45,7 @@ const ProductDetails = () => {
   return (
     <>
       <Menus />
-      <Breadcrumb className="ml-28" mt={4} fontWeight={"bold"}  spacing="8px" separator="-" mb="4">
+      <Breadcrumb className="ml-28" mt={4} fontWeight={"bold"}  spacing="8px" separator="•" mb="4">
         <BreadcrumbItem _hover={{color:"orange"}}>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>

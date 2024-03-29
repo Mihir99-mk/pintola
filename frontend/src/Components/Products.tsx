@@ -27,6 +27,7 @@ const Products = () => {
 
   return (
     <>
+      
       {data.data.map((item: any) => (
         <Card maxW="sm" key={item.id}>
           <Carousel

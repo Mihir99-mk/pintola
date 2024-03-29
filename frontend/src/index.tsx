@@ -13,6 +13,14 @@ import { ClerkProvider } from "@clerk/clerk-react";
 
 import CheckoutForm from "./Components/CheckoutForm";
 import Carts from "./Components/Carts";
+import TrackOrder from "./Components/TrackOrder";
+import Recipe from "./Components/Recipe";
+import Peanunt1 from "./Components/Peanunt1";
+import Peanunt2 from "./Components/Peanunt2";
+import Peanunt3 from "./Components/Peanunt3";
+import Peanunt4 from "./Components/Peanunt4";
+import About from "./Components/About";
+import Contact from "./Components/Contact";
 
 const queryClient = new QueryClient();
 
@@ -41,8 +49,40 @@ const router = createBrowserRouter([
     element: <Carts />,
   },
   {
-    path: "/cart",
+    path: "/store",
     element: <Store />,
+  },
+  {
+    path: "/about",
+    element: <About />,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
+  {
+    path: "/order",
+    element: <TrackOrder />,
+  },
+  {
+    path: "/recipe",
+    element: <Recipe />,
+  },
+  {
+    path: "/recipe/1",
+    element: <Peanunt1 />,
+  },
+  {
+    path: "/recipe/2",
+    element: <Peanunt2 />,
+  },
+  {
+    path: "/recipe/3",
+    element: <Peanunt3 />,
+  },
+  {
+    path: "/recipe/4",
+    element: <Peanunt4 />,
   },
   {
     path: "/:productid",
