@@ -788,41 +788,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiAllNaturalAndOrganicAllNaturalAndOrganic
-  extends Schema.CollectionType {
-  collectionName: 'all_natural_and_organics';
-  info: {
-    singularName: 'all-natural-and-organic';
-    pluralName: 'all-natural-and-organics';
-    displayName: 'All Natural & Organic';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    products: Attribute.Relation<
-      'api::all-natural-and-organic.all-natural-and-organic',
-      'oneToMany',
-      'api::product.product'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::all-natural-and-organic.all-natural-and-organic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::all-natural-and-organic.all-natural-and-organic',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiCarouselCarousel extends Schema.CollectionType {
   collectionName: 'carousels';
   info: {
@@ -846,6 +811,37 @@ export interface ApiCarouselCarousel extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::carousel.carousel',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCategoryCategory extends Schema.CollectionType {
+  collectionName: 'categories';
+  info: {
+    singularName: 'category';
+    pluralName: 'categories';
+    displayName: 'Category';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    categoryName: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::category.category',
       'oneToOne',
       'admin::user'
     > &
@@ -903,7 +899,13 @@ export interface ApiProductProduct extends Schema.CollectionType {
     Price: Attribute.Float;
     Discount: Attribute.Integer;
     productDescription: Attribute.Text;
-    shelfLife: Attribute.Integer;
+    shelfLife: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 2;
+        },
+        number
+      >;
     variants: Attribute.Relation<
       'api::product.product',
       'oneToMany',
@@ -914,12 +916,12 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'oneToMany',
       'api::size.size'
     >;
-    all_natural_and_organic: Attribute.Relation<
-      'api::product.product',
-      'manyToOne',
-      'api::all-natural-and-organic.all-natural-and-organic'
-    >;
     productImage: Attribute.Media;
+    categories: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::category.category'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1010,8 +1012,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::all-natural-and-organic.all-natural-and-organic': ApiAllNaturalAndOrganicAllNaturalAndOrganic;
       'api::carousel.carousel': ApiCarouselCarousel;
+      'api::category.category': ApiCategoryCategory;
       'api::combo.combo': ApiComboCombo;
       'api::product.product': ApiProductProduct;
       'api::size.size': ApiSizeSize;

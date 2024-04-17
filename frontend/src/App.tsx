@@ -15,7 +15,7 @@ function App() {
             Shop Our Best Sellers
           </Heading>
           <div className="grid grid-cols-3 gap-4">
-            <Products />
+            <Products ctName="all" />
             
           </div>
         </div>

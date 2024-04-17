@@ -25,7 +25,8 @@
       "type": "text"
     },
     "shelfLife": {
-      "type": "integer"
+      "type": "integer",
+      "min": 2
     },
     "variants": {
       "type": "relation",
@@ -37,12 +38,6 @@
       "relation": "oneToMany",
       "target": "api::size.size"
     },
-    "all_natural_and_organic": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::all-natural-and-organic.all-natural-and-organic",
-      "inversedBy": "products"
-    },
     "productImage": {
       "type": "media",
       "multiple": true,
@@ -51,6 +46,11 @@
         "images",
         "videos"
       ]
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category"
     }
   }
 }

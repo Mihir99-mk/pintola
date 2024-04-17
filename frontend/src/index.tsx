@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -95,6 +95,7 @@ const router = createBrowserRouter([
  
 ]);
 
+
 // const stripePromise = loadStripe(
 //   "pk_test_51OyWUySHJwhaAYNOFQ4djF7EV5RqCvSifJxj7OkrTr1brIqEh3SdiP8sEJ3Fy7wMjZcizeKAhwoRKJvDCOvENv390076QFiuuk"
 // );
@@ -105,7 +106,9 @@ const router = createBrowserRouter([
 // };
 root.render(
   <React.StrictMode>
+
     <ChakraProvider>
+
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
           <QueryClientProvider client={queryClient}>
             <>
@@ -114,5 +117,6 @@ root.render(
           </QueryClientProvider>
       </ClerkProvider>
     </ChakraProvider>
+
   </React.StrictMode>
 );

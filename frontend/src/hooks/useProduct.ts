@@ -8,7 +8,7 @@ const getProduct = async() =>{
       const {data} = await axios.get("/products?populate=*");;
       return data
     }catch(error){
-      throw new Error("Failed to fetch carousel data");
+      throw new Error("Failed to fetch products data");
     }
   }
 

@@ -14,15 +14,29 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useStore } from "../hooks/useStore";
 import useProduct from "../hooks/useProduct";
+import { useDebounce } from "../hooks/useDebounce";
+import useProductById from "../hooks/useProductById";
 
 type Props = {
   ctName: string;
 };
 
-const Products = ({ ctName }: Props) => {
+const SearchProduct = ({ ctName }: Props) => {
   const { data, error, isLoading } = useProduct();
   const addToCart = useStore((state) => state.addToCart);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState<any[]>([]);
+  const debouncedCtName = useDebounce(ctName, 500);
+  const [pId, setPId] = useState<number | undefined>();
+
+  const filteredProducts = data.data.filter((ct: any) =>
+    ct.attributes.productName.includes("Dark")
+  );
+  const filteredProductIds = filteredProducts.map((ct: any) => ct.id);
+
+  filteredProductIds.map((id: any)=>console.log(id))
+
+  const { data: productData, error:productError, isLoading:productLoading } = useProductById(pId);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,19 +45,26 @@ const Products = ({ ctName }: Props) => {
       }
 
       let filteredCategory = data.data;
-      if (ctName !== "all") {
-        filteredCategory = data.data.filter((ct: any) =>
-          ct.attributes.categories.data.some(
-            (cat: any) => cat.attributes.categoryName === ctName
-          )
-        );
-      }
+      const filteredProducts = data.data.filter((ct: any) =>
+        ct.attributes.productName.toLowerCase().includes(debouncedCtName.toLowerCase())
+      );
+      const filteredProductIds = filteredProducts.map((ct: any) => ct.id);
 
-      setCategory(filteredCategory);
+      filteredProductIds.map((id: any)=>setPId(filteredProductIds));
+      
     };
 
     fetchData();
-  }, [ctName, data, error, isLoading, setCategory]);
+  }, [debouncedCtName, setPId, data, error, isLoading]);
+
+  useEffect(() => {
+    if (pId !== undefined && !productLoading && !productError && productData && productData.data && productData.data.length > 0) {
+      setCategory(productData.data);
+    }
+  }, [pId, productData, productError, productLoading]);
+
+  // console.log(category)
+ 
 
   if (isLoading) {
     return <Spinner />;
@@ -74,7 +95,7 @@ const Products = ({ ctName }: Props) => {
               (img: any, index: number) => (
                 <div key={index}>
                   <img
-                    srcSet={`${Url}${img.attributes.url}`}
+                    src={`${Url}${img.attributes.url}`}
                     alt={item.attributes.productName}
                     width={img.attributes.width}
                     height={img.attributes.height}
@@ -121,4 +142,4 @@ const Products = ({ ctName }: Props) => {
   );
 };
 
-export default Products;
+export default SearchProduct;
